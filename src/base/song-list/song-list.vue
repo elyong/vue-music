@@ -20,14 +20,30 @@
       songs: {
         type: Array,
         default: []
+      },
+      rank: {
+        type: Boolean,
+        default: false
       }
     },
     method: {
       selectItem(item, index) {
         this.$emit('select', item, index)
       },
-      getDesc (song) {
+      getDesc(song) {
         return `${song.singer}·${song.album}`
+      },
+      getRankCls(index) {
+        if (index <= 2) {
+          return `icon icon${index}`
+        } else {
+          return ''
+        }
+      },
+      getRankText(index) {
+        if (index > 2) {
+          return index + 1
+        }
       }
     }
   }

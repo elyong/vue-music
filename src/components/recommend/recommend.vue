@@ -44,7 +44,7 @@
   import {mapMutations} from 'vuex'
 
   export default {
-    // mixins: [playlistMixin],
+    mixins: [playlistMixin],
     data() {
       return {
         recommends: [],
@@ -59,7 +59,6 @@
     methods: {
       handlePlaylist(playlist) {
         const bottom = playlist.length > 0 ? '60px' : ''
-
         this.$refs.recommend.style.bottom = bottom
         this.$refs.scroll.refresh()
       },

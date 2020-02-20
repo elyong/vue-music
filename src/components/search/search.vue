@@ -49,7 +49,8 @@
     mixins: [playlistMixin, searchMixin],
     data() {
       return {
-        hotKey: []
+        hotKey: [],
+        query: ''
       }
     },
     computed: {
@@ -61,6 +62,12 @@
       this._getHotKey()
     },
     methods: {
+      addQuery(query) {
+        this.$refs.searchBox.setQuery(query)
+      },
+      onQueryChange(query) {
+        this.query = query
+      },
       handlePlaylist(playlist) {
         const bottom = playlist.length > 0 ? '60px' : ''
 

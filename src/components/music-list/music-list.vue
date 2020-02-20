@@ -32,12 +32,14 @@
   import Loading from 'base/loading/loading'
   import {prefixStyle} from 'common/js/dom'
   import {mapActions} from 'vuex'
+  import {playlistMixin} from 'common/js/mixed'
 
   const RESERVED_HEIGHT = 40
   const transform = prefixStyle('transform')
   const backdrop = prefixStyle('backdrop-fliter')
 
   export default {
+    mixins: [playlistMixin],
     props: {
       bgImage: {
         type: String,
@@ -50,6 +52,10 @@
       title: {
         type: String,
         default: ''
+      },
+      rank: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -72,6 +78,11 @@
       this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
     },
     methods: {
+      handlePlaylist(playlist) {
+        const bottom = playlist.length > 0 ? '60px' : ''
+        this.$refs.list.$el.style.bottom = bottom
+        this.$refs.list.refresh()
+      },
       scroll(pos) {
         this.scrollY = pos.y
       },
@@ -84,8 +95,14 @@
           index
         })
       },
+      random() {
+        this.randomPlay({
+          list: this.songs
+        })
+      },
       ...mapActions([
-        'selectPlay'
+        'selectPlay',
+        'randomPlay'
       ])
     },
     watch: {
