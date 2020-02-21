@@ -110,6 +110,7 @@
   import {shuffle} from 'common/js/util'
   import Lyric from 'lyric-parser'
   import Scroll from 'base/scroll/scroll'
+  import Playlist from 'components/playlist/playlist'
 
   const transform = prefixStyle('transfrom')
   const transitionDuration = prefixStyle('transitionDuration')
@@ -434,7 +435,9 @@
     },
     components: {
       ProgressBar,
-      ProgressCircle
+      ProgressCircle,
+      Scroll,
+      Playlist
     }
   }
 </script>
