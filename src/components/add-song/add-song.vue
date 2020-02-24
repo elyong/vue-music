@@ -48,6 +48,8 @@
   import Scroll from 'base/scroll/scroll'
   import {mapGetters, mapActions} from 'vuex'
   import SongList from 'base/song-list/song-list'
+  import SearchList from 'base/search-list/search-list'
+  import TopTip from 'base/top-tip/top-tip'
   import Song from 'common/js/song'
 
   export default {
@@ -71,12 +73,20 @@
     methods: {
       show() {
         this.showFlag = true
+        setTimeout(() => {
+          if (this.currentIndex === 0) {
+            this.$refs.songList.refresh()
+          } else {
+            this.$refs.searchList.refresh()
+          }
+        })
       },
       hide() {
         this.showFlag = false
       },
       selectSuggest() {
         this.saveSearch()
+        this.showTip()
       },
       switchItem(index) {
         this.currentIndex = index
@@ -84,7 +94,11 @@
       selectSong(song, index) {
         if (index !== 0) {
           this.insertSong(new Song(song))
+          this.showTip()
         }
+      },
+      showTip() {
+        this.$refs.topTip.show()
       },
       ...mapActions([
         'insertSong'
@@ -95,7 +109,9 @@
       Suggest,
       Switches,
       Scroll,
-      SongList
+      SongList,
+      SearchList,
+      TopTip
     }
   }
 </script>
